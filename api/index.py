@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from gpycraft.googleSheet.gsheetsdb import gsheetsdb as gb
-from gpycraft.fireStore.firestoreupload import firestoreupload
+
 from gpycraft.app_config import Admin
 
 
@@ -53,11 +53,10 @@ credentials_path = temp_cred_file.name
 admin_instance = Admin()
 sheet_url = admin_instance.sheet_url(sheet_number=sheet_number)
 
-storage_bucket = os.getenv("FIREBASE_STORAGE_BUCKET", admin_instance.storage_bucket)
 
 # ================= INIT SERVICES =================
 gsheets_instance = gb(credentials_path, sheet_url, sheet_number=sheet_number)
-fire_instance = firestoreupload(storage_bucket=storage_bucket, credentials_path=credentials_path)
+
 
 # ================= API KEY SECURITY =================
 API_KEY = os.getenv("BIBLEMIND_API_KEY")
